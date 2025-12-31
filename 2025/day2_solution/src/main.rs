@@ -12,7 +12,7 @@ fn check_repeat(str: &str) -> bool {
 } 
 
 fn main() {
-  let input = fs::read_to_string("input.txt").expect("無法讀取檔案");
+  let input = fs::read_to_string("src/input.txt").expect("無法讀取檔案");
   let arr: Vec<&str> = input.split(",").collect();
   let mut result: i64 = 0;
 

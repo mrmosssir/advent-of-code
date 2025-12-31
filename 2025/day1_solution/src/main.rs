@@ -2,7 +2,7 @@ use std::fs;
 
 fn main() {
     // 讀取檔案，這裡直接 unwrap 處理錯誤（AoC 解題通常求快）
-    let input = fs::read_to_string("day_1_input.txt").expect("無法讀取檔案");
+    let input = fs::read_to_string("src/input.txt").expect("無法讀取檔案");
     
     let mut scale: i32 = 50;
     let mut answer: i32 = 0;
