@@ -1,6 +1,6 @@
 # Advent of Code
 
-This repository contains solutions for Advent of Code challenges.
+Learning Rust through Advent of Code challenges. Recording my solutions to look back on later and see how my thinking has evolved.
 
 ## Structure
 
@@ -8,6 +8,7 @@ This repository contains solutions for Advent of Code challenges.
 2025/
 ├── day1_solution/    # Day 1 solution
 ├── day2_solution/    # Day 2 solution
+├── day3_solution/    # Day 3 solution
 └── ...
 ```
 
