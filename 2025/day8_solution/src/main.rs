@@ -1,7 +1,4 @@
 use std::fs;
-use std::collections::HashMap;
-
-static MAX_SCAN_TIMES: usize = 1000;
 
 struct Diff {
     main: usize,
@@ -28,12 +25,14 @@ impl Dsu {
         root
     }
 
-    fn union(&mut self, main: usize, sub: usize) {
+    fn union(&mut self, main: usize, sub: usize) -> bool {
         let root_main = self.find(main);
         let root_sub = self.find(sub);
         if root_main != root_sub {
             self.parent[root_main] = root_sub;
+            return true;
         }
+        false
     }
 }
 
@@ -70,22 +69,19 @@ fn main() {
 
     dist_data_all.sort_unstable_by(|prev, next| prev.dist.cmp(&next.dist));
 
-    
-    let scan_times: usize = MAX_SCAN_TIMES.min(dist_data_all.len());
     let mut dsu = Dsu::new(point_arr.len());
+    let mut edges_count: usize = 0;
 
-    for position in 0..scan_times {
-        dsu.union(dist_data_all[position].main, dist_data_all[position].sub);
+    for dist_item in &dist_data_all {
+        if dsu.union(dist_item.main, dist_item.sub) {
+            edges_count += 1;
+
+            if edges_count == point_arr_len - 1 {
+                let point_x_main: usize = point_arr[dist_item.main][0].parse::<usize>().unwrap();
+                let point_x_sub: usize = point_arr[dist_item.sub][0].parse::<usize>().unwrap();
+                println!("{}", point_x_main * point_x_sub);
+            }
+        }
+        
     }
-
-    let mut sizes_group: HashMap<usize, usize> = HashMap::new();
-
-    for index in 0..point_arr.len() {
-        let root = dsu.find(index);
-        *sizes_group.entry(root).or_insert(0) += 1;
-    }
-
-    let mut sizes: Vec<usize> = sizes_group.values().cloned().collect();
-    sizes.sort_unstable_by(|prev, next| next.cmp(&prev));
-    println!("{:?}", sizes[0] * sizes[1] * sizes[2]);
 }
